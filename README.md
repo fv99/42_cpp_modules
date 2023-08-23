@@ -19,7 +19,7 @@
 | ------ | ----------------------------------------------------------------------------------------- |
 | `00`   | Namespaces, classes, member functions, stdio streams, init lists, static and const, etc.  |
 | `01`   | Memory allocation, pointers to members, references and switch statements                  |
-| `02    | Ad-Hoc polymorphism, operator overloading and orthodox canonical form                     |
+| `02`    | Ad-Hoc polymorphism, operator overloading and orthodox canonical form                     |
 | `03`   | Inheritance                                                                               |
 | `04`   | Subtype polymorphism, abstract classes and interfaces                                     |
 | `05`   | Repetition and exceptions                                                                 |
