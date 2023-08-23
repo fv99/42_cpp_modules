@@ -1,6 +1,5 @@
 # 42 C++ Modules
 
-First C++ modules at 42 Prague. The goal of these modules is to introduce you to Object Oriented Programming. 
 ![image](https://github.com/fv99/42_cpp_modules/assets/108353744/0e363e22-ed1e-483a-9303-cfba031d4568)
 
 ## **Rules:**
