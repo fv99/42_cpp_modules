@@ -74,6 +74,7 @@ void search_contact(PhoneBook& phonebook)
 int main(void)
 {
     PhoneBook phonebook;
+    phonebook.num = 0;
 
     while (1)
     {
