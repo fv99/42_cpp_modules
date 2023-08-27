@@ -1,3 +1,5 @@
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
 #include <iostream>
 #include <iomanip>
@@ -5,28 +7,27 @@
 
 class Contact
 {
-    public:
-        std::string name;
-        std::string last_name;
-        std::string nick;
-        std::string phone;
-        std::string secret;
-    
-    void display(void)
-    {
-        std::cout << "Name: " << name << std::endl;
-        std::cout << "Last name: " << last_name << std::endl;
-        std::cout << "Nick name: " << nick << std::endl;
-        std::cout << "Phone number: " << phone << std::endl;
-        std::cout << "Darkest secret: " << secret << std::endl;
-    }
+private:
+    std::string name;
+    std::string last_name;
+    std::string nick;
+    std::string phone;
+    std::string secret;
+
+public:
+    void display(void);
+    friend class PhoneBook;
 };
 
 class PhoneBook
 {
-    public:
-        Contact contacts[8];
-        int num;
+private:
+    Contact contacts[8];
+    int num;
 
-    
+public:
+    void add_contact();
+    void search_contact();
 };
+
+#endif // PHONEBOOK_HPP
