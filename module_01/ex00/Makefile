@@ -1,7 +1,7 @@
 CC			=	g++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g
 NAME		=	zombie
-SRCS		=	zombie.cpp
+SRCS		=	main.cpp Zombie.cpp randomChump.cpp newZombie.cpp
 RM			=	rm -f
 
 YELLOW		=	\033[0;33m;
