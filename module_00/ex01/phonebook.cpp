@@ -1,3 +1,4 @@
+// phonebook.cpp
 #include "phonebook.hpp"
 #include <iostream>
 #include <iomanip>
@@ -12,6 +13,35 @@ void Contact::display()
     std::cout << "Nick name: " << nick << std::endl;
     std::cout << "Phone number: " << phone << std::endl;
     std::cout << "Darkest secret: " << secret << std::endl;
+}
+
+void Contact::setContactInfo(const std::string& n, const std::string& ln, const std::string& nk, const std::string& ph, const std::string& sc)
+{
+    name = n;
+    last_name = ln;
+    nick = nk;
+    phone = ph;
+    secret = sc;
+}
+
+std::string Contact::getNamePreview() const
+{
+    return name.substr(0, 9);
+}
+
+std::string Contact::getLastNamePreview() const
+{
+    return last_name.substr(0, 9);
+}
+
+std::string Contact::getNickPreview() const
+{
+    return nick.substr(0, 9);
+}
+
+std::string Contact::getPhonePreview() const
+{
+    return phone.substr(0, 9);
 }
 
 void PhoneBook::add_contact()
@@ -29,25 +59,29 @@ void PhoneBook::add_contact()
     }
 
     // Rest of the code for input and clearing...
+    std::string name, last_name, nick, phone, secret;
+
     std::cout << "Enter first name:" << std::endl;
-    std::cin >> contacts[num].name;
+    std::cin >> name;
     system("clear");
 
     std::cout << "Enter last name:" << std::endl;
-    std::cin >> contacts[num].last_name;
+    std::cin >> last_name;
     system("clear");
 
     std::cout << "Enter nick name:" << std::endl;
-    std::cin >> contacts[num].nick;
+    std::cin >> nick;
     system("clear");
 
     std::cout << "Enter phone number:" << std::endl;
-    std::cin >> contacts[num].phone;
+    std::cin >> phone;
     system("clear");
 
     std::cout << "Enter darkest secret:" << std::endl;
-    std::cin >> contacts[num].secret;
+    std::cin >> secret;
     system("clear");
+
+    contacts[num].setContactInfo(name, last_name, nick, phone, secret);
 
     // Increment num after adding a contact
     num++;
@@ -61,10 +95,10 @@ void PhoneBook::search_contact()
     for (int i = 0; i < num; i++)
     {
         std::cout << std::right << std::setw(10) << i << " | ";
-        std::cout << std::right << std::setw(10) << contacts[i].name.substr(0, 9) << " | ";
-        std::cout << std::right << std::setw(10) << contacts[i].last_name.substr(0, 9) << " | ";
-        std::cout << std::right << std::setw(10) << contacts[i].nick.substr(0, 9) << " | ";
-        std::cout << std::right << std::setw(10) << contacts[i].phone.substr(0, 9) << std::endl;
+        std::cout << std::right << std::setw(10) << contacts[i].getNamePreview() << " | ";
+        std::cout << std::right << std::setw(10) << contacts[i].getLastNamePreview() << " | ";
+        std::cout << std::right << std::setw(10) << contacts[i].getNickPreview() << " | ";
+        std::cout << std::right << std::setw(10) << contacts[i].getPhonePreview() << std::endl;
     }
 
     do
@@ -83,8 +117,7 @@ void PhoneBook::search_contact()
             contacts[index].display();
             break;
         }
-    } while (true);
-}
+    } while (true);}
 
 int main(void)
 {
@@ -103,7 +136,12 @@ int main(void)
         else if (command == "EXIT")
             break;
         else
+        {
             std::cout << "ERROR: command not found" << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
+
     return 0;
 }

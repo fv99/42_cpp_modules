@@ -16,7 +16,11 @@ private:
 
 public:
     void display(void);
-    friend class PhoneBook;
+    void setContactInfo(const std::string& n, const std::string& ln, const std::string& nk, const std::string& ph, const std::string& sc);
+    std::string getNamePreview() const;
+    std::string getLastNamePreview() const;
+    std::string getNickPreview() const;
+    std::string getPhonePreview() const;
 };
 
 class PhoneBook
@@ -30,4 +34,4 @@ public:
     void search_contact();
 };
 
-#endif // PHONEBOOK_HPP
+#endif
