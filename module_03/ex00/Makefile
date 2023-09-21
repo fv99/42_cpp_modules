@@ -1,6 +1,6 @@
 CC			=	g++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g
-NAME		=	stupid_robot
+NAME		=	stupid_robot2
 SRCS		=	main.cpp ClapTrap.cpp
 RM			=	rm -f
 
