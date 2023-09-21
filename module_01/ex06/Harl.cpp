@@ -1,18 +1,18 @@
-#include "hurl.hpp"
+#include "Harl.hpp"
 
 Eblan::Eblan(void)
 {
-    std::cout << "я еблан" << std::endl;
+    std::cout << "constructor called" << std::endl;
 }
 
 Eblan::~Eblan(void)
 {
-    std::cout << "мне пизда" << std::endl;
+    std::cout << "destructor called" << std::endl;
 }
 
 void Eblan::debug(void)
 {
-    std::cout << "[DEBUG]: ох шит им сорри" << std::endl;
+    std::cout << "[DEBUG]: им сорри" << std::endl;
 }
 
 void Eblan::info(void)
@@ -22,12 +22,12 @@ void Eblan::info(void)
 
 void Eblan::warning(void)
 {
-    std::cout << "[WARN]: я бы выебал тебя в рот " << std::endl;
+    std::cout << "[WARN]: aaaaaaaaaaaaaaaaaaaa" << std::endl;
 }
 
 void Eblan::error(void)
 {
-    std::cout << "[ERROR]: ну я просто ебаный бот " << std::endl;
+    std::cout << "[ERROR]: я бот " << std::endl;
 }
 
 void Eblan::cry(std::string lvl)

@@ -1,7 +1,7 @@
-CC			=	g++
+CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g
 NAME		=	hurl
-SRCS		=	main.cpp
+SRCS		=	main.cpp Harl.cpp
 RM			=	rm -f
 
 YELLOW		=	\033[0;33m;

@@ -6,6 +6,15 @@
 #include <cstdlib>
 #include <limits>
 
+PhoneBook::PhoneBook()
+{
+    this->num = 0;
+}
+
+PhoneBook::~PhoneBook()
+{
+}
+
 void Contact::display()
 {
     std::cout << "Name: " << name << std::endl;
@@ -52,7 +61,6 @@ void PhoneBook::add_contact()
     if (num >= 8)
     {
         std::cout << "Phone book is full. Overwriting the oldest contact." << std::endl;
-
         for (int i = 0; i < num - 1; i++)
             contacts[i] = contacts[i + 1];
         num--;
@@ -63,29 +71,25 @@ void PhoneBook::add_contact()
 
     std::cout << "Enter first name:" << std::endl;
     std::cin >> name;
-    system("clear");
 
     std::cout << "Enter last name:" << std::endl;
     std::cin >> last_name;
-    system("clear");
 
     std::cout << "Enter nick name:" << std::endl;
     std::cin >> nick;
-    system("clear");
 
     std::cout << "Enter phone number:" << std::endl;
     std::cin >> phone;
-    system("clear");
 
     std::cout << "Enter darkest secret:" << std::endl;
     std::cin >> secret;
-    system("clear");
 
     contacts[num].setContactInfo(name, last_name, nick, phone, secret);
 
     // Increment num after adding a contact
     num++;
 }
+
 
 void PhoneBook::search_contact()
 {
@@ -103,7 +107,7 @@ void PhoneBook::search_contact()
 
     do
     {
-        std::cout << "Select index to display (0-" << num - 1 << "): ";
+        std::cout << "Select index to display: ";
         std::cin >> index;
 
         if (!std::cin.good() || index < 0 || index > 7)

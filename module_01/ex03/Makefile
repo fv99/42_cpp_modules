@@ -1,4 +1,4 @@
-CC			=	g++
+CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g
 NAME		=	violence
 SRCS		=	main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
