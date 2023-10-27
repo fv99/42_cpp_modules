@@ -1,7 +1,7 @@
 CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g
-NAME		=	stupid_robot2
-SRCS		=	main.cpp ClapTrap.cpp
+NAME		=	animals
+SRCS		=	main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 RM			=	rm -f
 
 YELLOW		=	\033[0;33m;

@@ -22,4 +22,4 @@ class Animal
 		virtual void makeSound(void) const;
 };
 
-#endif ANIMAL_HPP
+#endif

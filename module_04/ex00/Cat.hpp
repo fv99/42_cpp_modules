@@ -11,9 +11,9 @@ class Cat : public Animal
 		Cat(void);
 		Cat(const Cat &original);
 		Cat &operator=(const Cat &source);
-		~Cat(void);
+		~Cat();
 
 		void makeSound(void) const;
 };
 
-#endif CAT_HPP
+#endif
