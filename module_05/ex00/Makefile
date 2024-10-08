@@ -4,9 +4,9 @@ NAME		=	bureaucracy
 SRCS		=	main.cpp Bureaucrat.cpp
 RM			=	rm -f
 
-YELLOW		=	\033[0;33m;
-GREEN		=	\033[0;32m
-RESET		=	\033[0m
+GREEN		=	$(shell printf "\033[0;32m")
+YELLOW		=	$(shell printf "\033[0;33m")
+RESET		=	$(shell printf "\033[0m")
 
 all: $(NAME)
 
