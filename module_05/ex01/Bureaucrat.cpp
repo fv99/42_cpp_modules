@@ -6,11 +6,26 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:06:30 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/09 17:24:52 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:45:54 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
+
+// form signing
+void Bureaucrat::signForm(Form &form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << this->name << " signed " << form.getName() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << this->name << " cannot sign " << form.getName()<< ", " << e.what() << std::endl;
+	}
+}
 
 // constructor
 
@@ -58,22 +73,22 @@ size_t Bureaucrat::getGrade(void)const
 void Bureaucrat::incrementGrade(void)
 {
 	std::cout << "incrementing grade of " << this->getName() << std::endl;
-	this->setGrade(this->grade - 1);
+	this->setGrade(this->grade + 1);
 }
 
 void Bureaucrat::decrementGrade(void)
 {
 	std::cout << "decrementing grade of " << this->getName() << std::endl;
-	this->setGrade(this->grade + 1);
+	this->setGrade(this->grade - 1);
 }
 
 // setters
 void Bureaucrat::setGrade(int i)
 {
 	if (i > 150)
-		throw Bureaucrat::GradeTooLowException();
-	else if (i < 1)
 		throw Bureaucrat::GradeTooHighException();
+	else if (i < 1)
+		throw Bureaucrat::GradeTooLowException();
 	else
 		this->grade = i;
 }

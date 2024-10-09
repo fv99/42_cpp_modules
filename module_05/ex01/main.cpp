@@ -6,24 +6,26 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:47:43 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/09 17:24:20 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:51:10 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void)
 {
 	{
 		try
 		{
-			Bureaucrat github("github", 151);
-			std::cout << github << std::endl;
+			Form f0("2JZ-GTE", 0, 5);
+			std::cout << f0 << std::endl;
 		}
-		catch (std::exception &e)
+		catch(std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
+		
 	}
 
 	std::cout << "\n --------------------- \n\n";
@@ -31,48 +33,30 @@ int main(void)
 	{
 		try
 		{
-			Bureaucrat stack("stackoverflow", 0);
-			std::cout << stack << std::endl;
+			Bureaucrat filip("Filip", 15);
+			Form form("RB26DETT", 20, 45);
+			std::cout << filip << std::endl;
+			std::cout << form << std::endl;
+			filip.signForm(form);
+			std::cout << form << std::endl;
 		}
 		catch (std::exception &e)
 		{
 			std::cout << e.what() << std::endl;
 		}
 	}
-
-	std::cout << "\n --------------------- \n\n";
 	
-	{	
-		try 
-		{
-			Bureaucrat gpt("chatgpt", 3);
-			std::cout << gpt << std::endl;
-			gpt.incrementGrade();
-			std::cout << gpt << std::endl;
-			gpt.incrementGrade();
-			std::cout << gpt << std::endl;
-			gpt.incrementGrade();
-			std::cout << gpt << std::endl;
-		}
-		catch (std::exception &e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-	}
-
 	std::cout << "\n --------------------- \n\n";
 
-	{	
-		try 
+	{
+		try
 		{
-			Bureaucrat googl("google", 148);
-			std::cout << googl << std::endl;
-			googl.decrementGrade();
-			std::cout << googl << std::endl;
-			googl.decrementGrade();
-			std::cout << googl << std::endl;
-			googl.decrementGrade();
-			std::cout << googl << std::endl;
+			Bureaucrat hermes("Hermes", 35);
+			Form form2("1UZ-FE", 20, 45);
+			std::cout << hermes << std::endl;
+			std::cout << form2 << std::endl;
+			hermes.signForm(form2);
+			std::cout << form2 << std::endl;
 		}
 		catch (std::exception &e)
 		{
