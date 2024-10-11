@@ -1,73 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 12:36:07 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/11 16:13:06 by fvonsovs         ###   ########.fr       */
+/*   Created: 2024/10/11 13:04:14 by fvonsovs          #+#    #+#             */
+/*   Updated: 2024/10/11 16:22:28 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(void): Form::Form("shrubbery creation form", 145, 137), _target(NULL)
+RobotomyRequestForm::RobotomyRequestForm(void): Form::Form("robotomy creation form", 72, 45), _target(NULL)
 {
 	std::cout << "default constructor called for form " << this->getName() << ", grade to sign " << this->getSignGrade() \
 	 << ", grade to exec " << this->getExecGrade() << ", target:" << _target << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target): Form::Form("shrubbery creation form", 145, 137), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target): Form::Form("robotomy creation form", 72, 45), _target(target)
 {
 	std::cout << "constructor called for form " << this->getName() << ", grade to sign " << this->getSignGrade() \
 	 << ", grade to exec " << this->getExecGrade() << ", target:" << _target << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &copy): Form::Form(copy), _target(copy._target)
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &copy): Form::Form(copy), _target(copy._target)
 {
 	std::cout << "copy constructor called for form " << this->getName() << ", grade to sign " << this->getSignGrade() \
 	 << ", grade to exec " << this->getExecGrade() << ", target:" << _target << std::endl;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm(void)
+RobotomyRequestForm::~RobotomyRequestForm(void)
 {
 	std::cout << "destructor called for form " << this->getName() << std::endl;
 }
 
-ShrubberyCreationForm const	&ShrubberyCreationForm::operator=(const ShrubberyCreationForm &copy)
+RobotomyRequestForm const	&RobotomyRequestForm::operator=(const RobotomyRequestForm &copy)
 {
 	Form::operator=(copy);
 	this->_target = copy._target;
 	return (*this);
 }
 
-void ShrubberyCreationForm::beExecuted(const Bureaucrat &bureaucrat) const
+void RobotomyRequestForm::beExecuted(const Bureaucrat &bureaucrat) const
 {
-	std::ofstream file;
+	bool ret;
 
-	file.open((this->_target + "_shrubbery").c_str());
-	if (file.fail())
-	{
-		std::cout << "could not open file :(" << std::endl;
-		return ;
-	}
-    file << "       .\n";
-    file << "      `-- This\n";
-    file << "         |-- is\n";
-    file << "         |   |-- a\n";
-    file << "         |   `-- nice\n";
-    file << "         |       |-- tree!\n";
-    file << "         |       `-- (diagram)\n";
-    file << "         |           `-- :)\n";
-    file << "         `-- Bottom text\n";
-	file.close();
-	std::cout << bureaucrat.getName() << " successfuly created a shrubbery" << std::endl;
+	srand((unsigned) time(NULL));
+	ret = rand() % 2 + 1;
+	(void)bureaucrat;
+	if (ret)
+		std::cout << "succesfully robotimized " << this->getName() << std::endl;
+	else
+		std::cout << "failed to robotimize " << this->getName() << std::endl;
 }
 
-std::ostream	&operator<<(std::ostream &ret, ShrubberyCreationForm const &form)
+std::ostream	&operator<<(std::ostream &ret, RobotomyRequestForm const &form)
 {
 	ret << "form " << form.getName() << ", signed " << form.getSigned() << ", grade to sign " << form.getSignGrade() \
 	 << ", grade to exec " << form.getExecGrade() << std::endl;

@@ -1,17 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:55:41 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/09 17:50:18 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:18:58 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
+
+// execute
+
+void Form::execute(Bureaucrat const &bur) const
+{
+	if (!this->_signed)
+		throw Form::FormNotSignedException();
+	else if (bur.getGrade() > this->getSignGrade())
+		throw Form::GradeTooLowException();
+	else
+	{
+		std::cout << bur.getName() << " executed form " << this->getName() << std::endl;
+		this->beExecuted(bur);
+	}
+}
+
+// constructors
 
 Form::Form(void): _name("default"), _gsign(150), _gexec(150), _signed(false)
 {
@@ -96,6 +113,11 @@ char const	*Form::GradeTooHighException::what(void) const throw()
 char const	*Form::GradeTooLowException::what(void) const throw()
 {
 	return ("grade too low");
+}
+
+char const	*Form::FormNotSignedException::what(void) const throw()
+{
+	return ("form not signed");
 }
 
 std::ostream &operator<<(std::ostream &ret, Form const &form)

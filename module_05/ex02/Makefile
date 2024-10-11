@@ -1,7 +1,7 @@
 CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
 NAME		=	bureaucracy
-SRCS		=	main.cpp Bureaucrat.cpp AForm.cpp
+SRCS		=	main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp
 RM			=	rm -f
 
 GREEN		=	$(shell printf "\033[0;32m")

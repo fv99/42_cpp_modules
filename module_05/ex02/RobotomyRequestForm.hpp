@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 12:41:16 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/11 16:22:28 by fvonsovs         ###   ########.fr       */
+/*   Created: 2024/10/11 13:04:05 by fvonsovs          #+#    #+#             */
+/*   Updated: 2024/10/11 16:14:08 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
-#include "Bureaucrat.hpp"
-#include <fstream>
+#include <cstdlib>
 
 class Bureaucrat;
 
-class ShrubberyCreationForm: public Form
+class RobotomyRequestForm: public Form
 {
 	private:
 		std::string _target;
 	public:
 		// constructors
-		ShrubberyCreationForm(void);
-		ShrubberyCreationForm(std::string const &target);
-		ShrubberyCreationForm(ShrubberyCreationForm const &copy);
-		~ShrubberyCreationForm(void);
+		RobotomyRequestForm(void);
+		RobotomyRequestForm(std::string const &target);
+		RobotomyRequestForm(RobotomyRequestForm const &copy);
+		~RobotomyRequestForm(void);
 
-		ShrubberyCreationForm const &operator=(ShrubberyCreationForm const &copy);
+		RobotomyRequestForm const &operator=(RobotomyRequestForm const &copy);
 
 		void beExecuted(Bureaucrat const &bureaucrat) const;
 };
 
-std::ostream &operator<<(std::ostream &str, ShrubberyCreationForm const &form);
+std::ostream &operator<<(std::ostream &str, RobotomyRequestForm const &form);

@@ -6,12 +6,12 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:06:30 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/09 17:45:54 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:05:48 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 // form signing
 void Bureaucrat::signForm(Form &form)
@@ -24,6 +24,19 @@ void Bureaucrat::signForm(Form &form)
 	catch(const std::exception& e)
 	{
 		std::cout << this->name << " cannot sign " << form.getName()<< ", " << e.what() << std::endl;
+	}
+}
+
+// form execution
+void Bureaucrat::executeForm(Form const &form)
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << "cannot execute " << this->name << std::endl;
 	}
 }
 

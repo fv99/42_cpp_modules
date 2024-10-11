@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:56:09 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/09 17:47:51 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:20:00 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+
+#pragma once
 
 class Bureaucrat;
 
@@ -24,6 +26,9 @@ class Form
 		bool _signed;
 
 	public:
+		// executor
+		void execute(Bureaucrat const &bur) const;
+
 		// constructors
 		Form(void);
 		Form(std::string const &name, size_t const &gsign, size_t const &gexec);
@@ -57,6 +62,13 @@ class Form
 				virtual const char *what() const throw();
 		};
 
+		class FormNotSignedException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
+
+		virtual void	beExecuted(Bureaucrat const &bureaucrat) const = 0;
 };
 
 std::ostream &operator<<(std::ostream &ret, Form const &form);
