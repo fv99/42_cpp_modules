@@ -6,209 +6,166 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:40:27 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/16 17:33:52 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:54:36 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "convert.hpp"
 
-// private default constructor
-Convert::Convert(): _input(""), _type(_ERR), _c_val(0), _d_val(0.0), _i_val(0), _f_val(0.0f)
-{
-    std::cout << "convertor default constructor called" << std::endl;
-}
+Converter::Converter() {}
+Converter::Converter(const Converter &) {}
+Converter &Converter::operator=(const Converter &) { return *this; }
+Converter::~Converter() {}
 
-// public assign constructor
-Convert::Convert(const std::string input): _input(input), _type(_ERR), _c_val(0), _d_val(0.0), _i_val(0), _f_val(0.0f)
+void Converter::convert(const std::string &input)
 {
-    std::cout << "convertor assign constructor called, attempting to convert " << this->getInput() << std::endl;
+    char c_val = 0;
+    int i_val = 0;
+    float f_val = 0.0f;
+    double d_val = 0.0;
 
-    if (_input == "nan" || _input == "nanf")
+    bool char_impossible = false;
+    bool int_impossible = false;
+
+    // check special cases
+    if (input == "nan" || input == "nanf")
     {
-        _type = _NAN;
-        _f_val = NAN;
-        _d_val = NAN;
+        d_val = std::numeric_limits<double>::quiet_NaN();
+        f_val = std::numeric_limits<float>::quiet_NaN();
+        char_impossible = true;
+        int_impossible = true;
     }
-    else if (_input == "+inf" || _input == "+inff" || _input == "inf" || _input == "inff")
+    else if (input == "+inf" || input == "+inff" || input == "inf" || input == "inff")
     {
-        _type = _FLOAT;
-        _f_val = std::numeric_limits<float>::infinity();
-        _d_val = std::numeric_limits<double>::infinity();
+        d_val = std::numeric_limits<double>::infinity();
+        f_val = std::numeric_limits<float>::infinity();
+        char_impossible = true;
+        int_impossible = true;
     }
-    else if (_input == "-inf" || _input == "-inff")
+    else if (input == "-inf" || input == "-inff")
     {
-        _type = _FLOAT;
-        _f_val = -std::numeric_limits<float>::infinity();
-        _d_val = -std::numeric_limits<double>::infinity();
+        d_val = -std::numeric_limits<double>::infinity();
+        f_val = -std::numeric_limits<float>::infinity();
+        char_impossible = true;
+        int_impossible = true;
     }
-    // try to convert to char
-    else if (_input.length() == 3 && _input[0] == '\'' && _input[2] == '\'')
+    // single char
+    else if (input.length() == 1 && isprint(input[0]) && !isdigit(input[0]))
     {
-        _type = _CHAR;
-        _c_val = _input[1];
-        _i_val = static_cast<int>(_c_val);
-        _f_val = static_cast<float>(_i_val);
-        _d_val = static_cast<double>(_i_val);
+        c_val = input[0];
+        i_val = static_cast<int>(c_val);
+        f_val = static_cast<float>(c_val);
+        d_val = static_cast<double>(c_val);
     }
     else
     {
-        char* end;
+        // convert to double
+        char *end;
         errno = 0;
-
-        // try to convert to integer
-        long val = std::strtol(_input.c_str(), &end, 10);
-        if (errno == 0 && *end == '\0' && val <= std::numeric_limits<int>::max() && val >= std::numeric_limits<int>::min())
+        d_val = std::strtod(input.c_str(), &end);
+        if (errno != 0 || end == input.c_str())
         {
-            _i_val = static_cast<int>(val);
-            _type = _INT;
-            _c_val = (_i_val >= 32 && _i_val <= 126) ? static_cast<char>(_i_val) : 0;
-            _f_val = static_cast<float>(_i_val);
-            _d_val = static_cast<double>(_i_val);
+            std::cerr << "Invalid input" << std::endl;
+            return;
+        }
+
+        if (*end == 'f' && *(end + 1) == '\0')
+        {
+            // input is a float literal with f
+            f_val = static_cast<float>(d_val);
+        }
+        else if (*end == '\0')
+        {
+            // input is a valid double literal
+            f_val = static_cast<float>(d_val);
         }
         else
         {
-            // try to convert to float or double
-            double d_val = std::strtod(_input.c_str(), &end);
-            if (errno == 0 && *end == 'f' && *(end + 1) == '\0')
-            {
-                _f_val = static_cast<float>(d_val);
-                _d_val = d_val;
-                _type = _FLOAT;
-            }
-            else if (errno == 0 && *end == '\0')
-            {
-                _d_val = d_val;
-                _f_val = static_cast<float>(_d_val);
-                _type = _DOUBLE;
-            }
-            else
-            {
-                throw ErrorThrow();
-            }
+            std::cerr << "Invalid input" << std::endl;
+            return;
         }
-    }
-}
 
-// copy constructor
-Convert::Convert(const Convert &src): _input(src._input), _type(src._type), _c_val(src._c_val), _d_val(src._d_val), _i_val(src._i_val), _f_val(src._f_val)
-{
-    std::cout << "copy constructor called for " << src.getInput() << std::endl;
-}
-
-// destructor
-Convert::~Convert()
-{
-    std::cout << "destructor called for convertor" << std::endl;
-}
-
-// overload
-Convert &Convert::operator=(const Convert &src)
-{
-    std::cout << "convert assign operator called" << std::endl;
-    if (this == &src)
-        return *this;
-
-    this->_type = src.getType();
-    this->_c_val = src.getChar();
-    this->_i_val = src.getInt();
-    this->_f_val = src.getFloat();
-    this->_d_val = src.getDouble();
-    return *this;
-}
-
-// getters
-std::string Convert::getInput(void)const
-{
-    return (this->_input);
-}
-
-Type Convert::getType(void)const
-{
-    return (this->_type);
-}
-
-char Convert::getChar(void)const
-{
-    if (_type == _CHAR || (_type == _INT && _i_val >= 32 && _i_val <= 126))
-        return _c_val;
-    else
-        throw ErrorThrow();
-}
-
-int Convert::getInt(void)const
-{
-    if (_type == _INT || _type == _CHAR)
-        return _i_val;
-    else
-        throw ErrorThrow();
-}
-
-float Convert::getFloat(void)const
-{
-    return (this->_f_val);
-}
-
-double Convert::getDouble(void)const
-{
-    return (this->_d_val);
-}
-
-// exception
-const char *Convert::ErrorThrow::what(void) const throw()
-{
-    return ("ERROR: cannot print or convert input");
-}
-
-// overflow
-std::ostream &operator<<(std::ostream &os, const Convert &converter)
-{
-    // Print char
-    try
-    {
-        char c = converter.getChar();
-        if (std::isprint(c))
+        // convert to int
+        if (d_val < static_cast<double>(std::numeric_limits<int>::min()) ||
+            d_val > static_cast<double>(std::numeric_limits<int>::max()) ||
+            std::isnan(d_val) || std::isinf(d_val))
         {
-            os << "char: '" << c << "'" << std::endl;
+            int_impossible = true;
         }
         else
         {
-            os << "char: Non displayable" << std::endl;
+            i_val = static_cast<int>(d_val);
+        }
+
+        // convert to char
+        if (d_val < static_cast<double>(std::numeric_limits<char>::min()) ||
+            d_val > static_cast<double>(std::numeric_limits<char>::max()) ||
+            std::isnan(d_val) || std::isinf(d_val))
+        {
+            char_impossible = true;
+        }
+        else
+        {
+            c_val = static_cast<char>(i_val);
         }
     }
-    catch (const Convert::ErrorThrow &)
+
+    // Output char
+    if (char_impossible)
     {
-        os << "char: impossible" << std::endl;
+        std::cout << "char: impossible" << std::endl;
+    }
+    else if (!isprint(c_val))
+    {
+        std::cout << "char: Non displayable" << std::endl;
+    }
+    else
+    {
+        std::cout << "char: '" << c_val << "'" << std::endl;
     }
 
-    // Print int
-    try
+    // Output int
+    if (int_impossible)
     {
-        os << "int: " << converter.getInt() << std::endl;
+        std::cout << "int: impossible" << std::endl;
     }
-    catch (const Convert::ErrorThrow &)
+    else
     {
-        os << "int: impossible" << std::endl;
-    }
-
-    // Print float
-    try
-    {
-        os << "float: " << converter.getFloat() << "f" << std::endl;
-    }
-    catch (const Convert::ErrorThrow &)
-    {
-        os << "float: impossible" << std::endl;
+        std::cout << "int: " << i_val << std::endl;
     }
 
-    // Print double
-    try
+    // Output float
+    std::cout << std::fixed << std::setprecision(1);
+    if (std::isnan(f_val))
     {
-        os << "double: " << converter.getDouble() << std::endl;
+        std::cout << "float: nanf" << std::endl;
     }
-    catch (const Convert::ErrorThrow &)
+    else if (std::isinf(f_val))
     {
-        os << "double: impossible" << std::endl;
+        if (f_val > 0)
+            std::cout << "float: +inff" << std::endl;
+        else
+            std::cout << "float: -inff" << std::endl;
+    }
+    else
+    {
+        std::cout << "float: " << f_val << "f" << std::endl;
     }
 
-    return os;
+    // Output double
+    if (std::isnan(d_val))
+    {
+        std::cout << "double: nan" << std::endl;
+    }
+    else if (std::isinf(d_val))
+    {
+        if (d_val > 0)
+            std::cout << "double: +inf" << std::endl;
+        else
+            std::cout << "double: -inf" << std::endl;
+    }
+    else
+    {
+        std::cout << "double: " << d_val << std::endl;
+    }
 }
