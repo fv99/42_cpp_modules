@@ -1,6 +1,6 @@
 CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
-NAME		=	iter
+NAME		=	array
 SRCS		=	main.cpp
 RM			=	rm -f
 
