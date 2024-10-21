@@ -3,12 +3,12 @@
 #include <iostream>
 #include <cstdlib>
 
-template <typename ARRAY>
+template <typename T>
 
 class Array
 {
 	private:
-		ARRAY *_arr;
+		T *_arr;
 		unsigned int _size;
 	
 	public:
@@ -16,14 +16,14 @@ class Array
 		Array(): _size(0)
 		{
 			std::cout << "default constructor called for array of size 0" << std::endl;
-			this->_arr = new ARRAY[this->_size];
+			this->_arr = new T[this->_size];
 		}
 
 		// constructor with param
 		Array(unsigned int size): _size(size)
 		{
 			std::cout << "constructor called for array of size " << size << std::endl;
-			this->_arr = new ARRAY[this->_size];
+			this->_arr = new T[this->_size];
 		}
 
 		// copy constructor
@@ -49,7 +49,7 @@ class Array
 			if (src.size() != 0)
 			{
 				this->_size = src.size();
-				this->_arr = new ARRAY[this->_size];
+				this->_arr = new T[this->_size];
 				for (unsigned int i = 0; i < this->size(); i++)
 					this->_arr[i] = src._arr[i];
 			}
@@ -64,12 +64,12 @@ class Array
 		};
 
 		// overload for []
-		ARRAY &operator[](unsigned int i)
+		T &operator[](unsigned int i)
 		{
 			if (i >= this->_size || this->_arr == NULL)
 			{
 				std::cout << "index: " << i << std::endl;
-				throw Array<ARRAY>::OutOfBoundsException();
+				throw Array<T>::OutOfBoundsException();
 			}
 			return (this->_arr[i]);
 		}
@@ -81,9 +81,9 @@ class Array
 
 };
 
-template <typename ARRAY>
+template <typename T>
 
-const char *Array<ARRAY>::OutOfBoundsException::what() const throw()
+const char *Array<T>::OutOfBoundsException::what() const throw()
 {
 	return ("Error: Index out of bounds");
 }
