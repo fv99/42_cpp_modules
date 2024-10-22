@@ -25,6 +25,21 @@ void Span::addNumber(int number)
 	_arr.push_back(number);
 }
 
+void Span::addRandomNumbers(unsigned int num)
+{
+	srand(static_cast<unsigned int>(time(0)));
+	
+    unsigned int space = _N - _arr.size();
+    if (num > space)
+        throw std::out_of_range("Error: Not enough space to add all numbers");
+
+    for (unsigned int i = 0; i < num; ++i)
+    {
+        int number = rand();
+        _arr.push_back(number);
+    }
+}
+
 // using std::sort to sort the array
 unsigned int Span::shortestSpan() const
 {
@@ -34,7 +49,7 @@ unsigned int Span::shortestSpan() const
 	std::vector<int> sorted(_arr);
 	std::sort(sorted.begin(), sorted.end());
 
-	unsigned int min = std::numeric_limits<int>::max();
+	unsigned int min = std::numeric_limits<unsigned int>::max();
 	for (std::vector<int>::size_type i = 0; i < sorted.size() - 1; ++i)
 	{
 		unsigned int span = sorted[i + 1] - sorted[i];

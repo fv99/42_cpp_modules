@@ -24,6 +24,7 @@ class Span
 		Span &operator=(const Span &src);
 
 		void addNumber(int number);
+		void addRandomNumbers(unsigned int num);
 		unsigned int shortestSpan() const;
 		unsigned int longestSpan() const;
 };
