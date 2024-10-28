@@ -3,7 +3,13 @@
 int main(int argc, char **argv)
 {
 	if (argc != 2)
-		throw std::invalid_argument("Usage: ./btc <filename>");
+	{
+		std::cerr << "Usage: ./btc <filename>" << std::endl;
+		return 1;
+	}
+
+	BitcoinExchange exchange("data.csv");
+	exchange.processInput(argv[1]);
 
 	return 0;
 }

@@ -6,6 +6,9 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
+
+// using map container
 
 class BitcoinExchange
 {
@@ -22,5 +25,9 @@ class BitcoinExchange
 
 		void loadExchangeRates(const std::string &filename);
 		void processInput(const std::string &filename) const;
+
+		double getRate(const std::string &datestr) const;
+		bool validateRate(const std::string &valuestr, double &value) const;
+		bool validateDate(const std::string &datestr) const;
 
 };

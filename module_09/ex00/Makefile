@@ -1,7 +1,7 @@
 CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
 NAME		=	btc
-SRCS		=	main.cpp
+SRCS		=	main.cpp BitcoinExchange.cpp
 RM			=	rm -f
 
 GREEN		=	$(shell printf "\033[0;32m")
