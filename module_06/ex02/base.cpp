@@ -37,32 +37,31 @@ void identify(Base *p)
 		std::cout << "cannot identify type" << std::endl;
 }
 
-
 void identify(Base& p)
 {
     try
     {
-        A& _A = dynamic_cast<A&>(p);
+        A& a = dynamic_cast<A&>(p);
         std::cout << "Type A" << std::endl;
-        (void)_A;
+        (void)a;
     }
-    catch (std::bad_cast&)
+    catch (...)
     {
         try
         {
-            B& _B = dynamic_cast<B&>(p);
+            B& b = dynamic_cast<B&>(p);
             std::cout << "Type B" << std::endl;
-            (void)_B;
+            (void)b;
         }
-        catch (std::bad_cast&)
+        catch (...)
         {
             try
             {
-                C& _C = dynamic_cast<C&>(p);
+                C& c = dynamic_cast<C&>(p);
                 std::cout << "Type C" << std::endl;
-                (void)_C;
+                (void)c;
             }
-            catch (std::bad_cast&)
+            catch (...)
             {
                 std::cout << "Cannot identify type" << std::endl;
             }
