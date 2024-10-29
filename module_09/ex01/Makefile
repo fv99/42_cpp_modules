@@ -1,7 +1,7 @@
 CC			=	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
-NAME		=	rpn
-SRCS		=	main.cpp BitcoinExchange.cpp
+NAME		=	RPN
+SRCS		=	main.cpp RPN.cpp
 RM			=	rm -f
 
 GREEN		=	$(shell printf "\033[0;32m")
