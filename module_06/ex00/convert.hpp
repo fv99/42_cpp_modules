@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:35:06 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/17 15:57:55 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:27:36 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ private:
     Converter(const Converter &);
     Converter &operator=(const Converter &);
     ~Converter();
+	
+    static bool isChar(const std::string &input);
+    static bool isInt(const std::string &input);
+    static bool isFloat(const std::string &input);
+    static bool isDouble(const std::string &input);
 
 public:
     static void convert(const std::string &input);
+
 };
