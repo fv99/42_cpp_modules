@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:40:27 by fvonsovs          #+#    #+#             */
-/*   Updated: 2024/10/29 14:31:47 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:33:35 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,9 @@ void Converter::convert(const std::string &input)
         return;
     }
 
-    // Check for char impossibility
     if (int_impossible || i_val < std::numeric_limits<char>::min() || i_val > std::numeric_limits<char>::max())
         char_impossible = true;
 
-    // Output the results
-    // Char
     if (char_impossible)
         std::cout << "char: impossible" << std::endl;
     else if (!isprint(c_val))
@@ -84,13 +81,11 @@ void Converter::convert(const std::string &input)
     else
         std::cout << "char: '" << c_val << "'" << std::endl;
 
-    // Int
     if (int_impossible)
         std::cout << "int: impossible" << std::endl;
     else
         std::cout << "int: " << i_val << std::endl;
 
-    // Float
     std::cout << std::fixed << std::setprecision(1);
     if (std::isnan(f_val))
         std::cout << "float: nanf" << std::endl;
@@ -99,7 +94,6 @@ void Converter::convert(const std::string &input)
     else
         std::cout << "float: " << f_val << "f" << std::endl;
 
-    // Double
     if (std::isnan(d_val))
         std::cout << "double: nan" << std::endl;
     else if (std::isinf(d_val))
