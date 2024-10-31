@@ -1,4 +1,12 @@
 #include "PmergeMe.hpp"
+#include <sys/time.h>
+
+double getTime()
+{
+    struct timeval time_;
+    gettimeofday(&time_, NULL);
+    return (time_.tv_sec * 1000000 + time_.tv_usec);
+}
 
 int main(int argc, char **argv)
 {
@@ -9,7 +17,7 @@ int main(int argc, char **argv)
 	}
 
 	std::vector <int> numbers;
-	for (int i = 0; i < argc; ++i)
+	for (int i = 1; i < argc; ++i)
 	{
 		std::string arg(argv[i]);
 		for (size_t j = 0; j < arg.size(); ++j)
@@ -29,5 +37,15 @@ int main(int argc, char **argv)
 		numbers.push_back(static_cast<int>(num));
 	}
 
+	PmergeMe sortme(numbers);
+	sortme.sort();
 
+	// compare with std::sort
+	double start = getTime();
+	std::sort(numbers.begin(), numbers.end());
+	double end = getTime();
+
+	std::cout << "Time to sort with std::sort: " << end - start << " us" << std::endl;
+
+	return 0;
 }

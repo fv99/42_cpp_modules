@@ -21,6 +21,12 @@ class PmergeMe
 		void printNumbers(const std::string &head, const std::vector<int> &seq) const;
 		double getTime();
 
+		void sortList();
+		void sortDeque();
+
+		template <typename T>
+		void insertSorted(T &sorted, typename T::value_type val);
+
 		template <typename T>
 		void fjSort(T& lst);
 
